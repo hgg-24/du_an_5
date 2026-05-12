@@ -44,13 +44,18 @@ def get_smiles_from_formula(formula):
     try:
         url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastformula/{formula}/property/CanonicalSMILES/JSON"
         response = requests.get(url, timeout=5)
+        
         if response.status_code == 200:
             data = response.json()
-            return data['PropertyTable']['Properties'][0]['CanonicalSMILES']
+            # Bổ sung dòng kiểm tra an toàn: Chỉ lấy dữ liệu nếu tồn tại key 'PropertyTable'
+            if 'PropertyTable' in data and 'Properties' in data['PropertyTable']:
+                return data['PropertyTable']['Properties'][0]['CanonicalSMILES']
+                
+        # Nếu không có data hoặc lỗi, trả về None để hệ thống tự hiện cảnh báo vàng
         return None
+        
     except Exception:
         return None
-
 def draw_bohr_model(atomic_number):
     """Vẽ mô hình Bohr 2D bằng Plotly."""
     # Quy tắc phân bố electron cơ bản (Klechkowski giản lược)
