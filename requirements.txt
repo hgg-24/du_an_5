@@ -8,3 +8,4 @@ rdkit
 stmol
 py3Dmol
 Pillow
+ipython_genutils
