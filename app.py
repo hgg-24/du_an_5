@@ -42,7 +42,7 @@ inject_custom_css()
 def get_smiles_from_formula(formula):
     """Sử dụng PubChem API để lấy SMILES từ công thức phân tử."""
     try:
-        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastformula/{formula}/property/CanonicalSMILES/JSON"
+        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{formula}/property/CanonicalSMILES/JSON"
         response = requests.get(url, timeout=5)
         
         if response.status_code == 200:
